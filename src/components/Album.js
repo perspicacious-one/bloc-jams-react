@@ -4,11 +4,10 @@ import albumData from './../data/albums';
 class Album extends Component {
   constructor(props) {
     super(props);
-
+    console.log(this.props)
     const album = albumData.find( album => {
       return album.slug === this.props.match.params.slug
     });
-
     this.state = {
       album: album
     };
