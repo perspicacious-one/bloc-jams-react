@@ -10,12 +10,9 @@ class Album extends Component {
     });
 
     this.state = {
-      album: album,
+      album: album
     };
-
   }
-
-
 
   render() {
     return (
@@ -35,27 +32,12 @@ class Album extends Component {
             <col id="song-duration-column" />
           </colgroup>
           <tbody>
-
-            {this.state.album.songs.map( (song, index) =>
-              <tr key={index.toString()}>
-                <td>
-                  <button>
-                    <span className="ion-play"></span>
-                  </button>
-                </td>
-                <td><span className='song-number'>{index + 1}</span></td>
-                <td>{song.title}</td>
-                <td>{song.duration}</td>
-              </tr>
-            )}
-
           </tbody>
         </table>
       </section>
     );
   }
 }
-
 
 
 export default Album;
