@@ -11,11 +11,60 @@ class Album extends Component {
 
     this.state = {
       album: album,
+      currentSong: album.songs[0],
+      isPlaying: false
     };
 
+    this.audioElement = document.createElement('audio');
+    this.audioElement.src = album.songs[0].audioSrc;
   }
 
 
+
+  play() {
+    this.audioElement.play();
+    this.setState({ isPlaying: true });
+  }
+
+  pause() {
+    this.audioElement.pause();
+    this.setState({ isPlaying: false });
+  }
+
+  setSong(song) {
+    this.audioElement.src = song.audioSrc;
+    this.setState({ currentSong: song })
+  }
+
+  handleSongClick(song) {
+    const isSameSong = this.state.currentSong === song;
+    if (this.state.isPlaying && isSameSong) {
+      this.pause();
+    }
+    else {
+      if (!isSameSong) { this.setSong(song); }
+      this.play();
+    }
+  }
+
+  renderSongs() {
+    return (
+      <tbody>
+        {this.state.album.songs.map( (song, index) =>
+          <tr className="song" key={index.toString()} onClick={ () => this.handleSongClick(song) } >
+            <td>
+              <button>
+                <span className="ion-play"></span>
+              </button>
+            </td>
+            <td><span className='song-number'>{index + 1}</span></td>
+            <td>{song.title}</td>
+            <td>{song.duration}</td>
+          </tr>
+        )}
+      </tbody>
+    )
+  }
 
   render() {
     return (
@@ -34,26 +83,11 @@ class Album extends Component {
             <col id="song-title-column" />
             <col id="song-duration-column" />
           </colgroup>
-          <tbody>
-            {this.state.album.songs.map( (song, index) =>
-              <tr key={index.toString()}>
-                <td>
-                  <button>
-                    <span className="ion-play"></span>
-                  </button>
-                </td>
-                <td><span className='song-number'>{index + 1}</span></td>
-                <td>{song.title}</td>
-                <td>{song.duration}</td>
-              </tr>
-            )}
-          </tbody>
+          {this.renderSongs()}
         </table>
       </section>
     );
   }
 }
-
-
 
 export default Album;
