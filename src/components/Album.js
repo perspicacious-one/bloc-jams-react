@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import albumData from './../data/albums';
+import PlayerBar from './PlayerBar';
 
 class Album extends Component {
   constructor(props) {
@@ -18,8 +19,6 @@ class Album extends Component {
     this.audioElement = document.createElement('audio');
     this.audioElement.src = album.songs[0].audioSrc;
   }
-
-
 
   play() {
     this.audioElement.play();
@@ -46,6 +45,20 @@ class Album extends Component {
       this.play();
     }
   }
+
+  handlePrevClick() {
+    const currentIndex = this.state.album.songs.findIndex(song => this.state.currentSong === song)
+    if (currentIndex === 0) {return;}
+    else {
+      const newIndex = currentIndex - 1;
+      const newSong = this.state.album.songs[newIndex]
+      this.pause();
+      this.setSong(newSong);
+      this.play();
+    }
+  }
+
+
 
   renderSongs() {
     return (
@@ -85,6 +98,12 @@ class Album extends Component {
           </colgroup>
           {this.renderSongs()}
         </table>
+        <PlayerBar
+          isPlaying={this.state.isPlaying}
+          currentSong={this.state.currentSong}
+          handleSongClick={ () => this.handleSongClick(this.state.currentSong)}
+          handlePrevClick={ () => this.handlePrevClick()}
+          />
       </section>
     );
   }
