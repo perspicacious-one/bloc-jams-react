@@ -10,7 +10,7 @@ const PlayerBar = function(props) {
           <button id="play-pause" onClick={props.handleSongClick}>
             <span className={props.isPlaying ? 'ion-pause' : 'ion-play'}></span>
           </button>
-          <button id="next">
+          <button id="next" onClick={props.handleNextClick}>
             <span className="ion-skip-forward"></span>
           </button>
         </section>
