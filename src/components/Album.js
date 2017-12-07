@@ -23,6 +23,14 @@ class Album extends Component {
     this.audioElement.src = album.songs[0].audioSrc;
   }
 
+  formatTime(seconds) {
+    const time = Math.floor(seconds);
+    const prettySeconds = String(time % 60);
+    const prettyMin = String(Math.floor((time - prettySeconds) / 60));
+
+    return prettyMin + ":" + prettySeconds.padStart(2, "0");
+  }
+
   componentDidMount() {
     this.eventListeners = {
       timeupdate: e => {
@@ -70,7 +78,11 @@ class Album extends Component {
 
   handlePrevClick() {
     const currentIndex = this.state.album.songs.findIndex(song => this.state.currentSong === song)
-    if (currentIndex === 0) {return;}
+    if (currentIndex === 0) {
+      this.audioElement.currentTime = 0;
+      this.setState({ currentTime: 0 })
+      return;
+    }
     else {
       const newIndex = currentIndex - 1;
       const newSong = this.state.album.songs[newIndex]
@@ -102,9 +114,6 @@ class Album extends Component {
     this.setState({ currentTime: newTime });
   }
 
-  formatTime(seconds) {
-    const prettyTime = Math.floor(seconds)
-  }
 
   renderSongs() {
     return (
@@ -118,7 +127,7 @@ class Album extends Component {
             </td>
             <td><span className='song-number'>{index + 1}</span></td>
             <td>{song.title}</td>
-            <td>{song.duration}</td>
+            <td>{this.formatTime(song.duration)}</td>
           </tr>
         )}
       </tbody>
@@ -154,6 +163,7 @@ class Album extends Component {
           handleNextClick={ () => this.handleNextClick()}
           handleTimeChange={(e) => this.handleTimeChange(e)}
           handleVolumeChange={(e) => this.handleVolumeChange(e)}
+          formatTime={(seconds) => this.formatTime(seconds)}
           />
       </section>
     );
