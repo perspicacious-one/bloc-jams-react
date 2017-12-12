@@ -1,0 +1,62 @@
+.library {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 5%;
+}
+
+.library .card {
+  margin: 5%;
+  padding: 0;
+  width: 40%;
+  min-width: 200px;
+  max-width: 500px;
+  background-size: cover;
+  background-position: bottom;
+  box-shadow: 1px 1px 3px rgba(28, 29, 31, .4);
+}
+.library .card-header .card-artist {
+  color: white;
+  text-shadow: 1px 1px 3px rgba(28, 29, 31, .4);
+}
+.library .card-body {
+  min-height: 100px;
+  padding: 15px;
+  display: flex;
+  align-content: flex-start;
+  justify-content: center;
+}
+.library .card-body a {
+  width: 100%;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+}
+.card-body .play-icon {
+  filter: invert(100%);
+  margin-right: 10px;
+  height: 28px;
+  width: 28px;
+
+}
+.card-body .play-icon:hover {
+    filter: invert(100%) drop-shadow(1px 1px 3px rgba(78, 42, 90, .6));
+}
+
+.library .card-title {
+  margin-top: 15px;
+  text-align: left;
+  color: white;
+  filter: drop-shadow(1px 1px 3px rgba(78, 42, 90, .6));
+}
+.library .card-title:hover {
+  color: white;
+  border-bottom: 1px solid #4e2a5a;
+  font-weight: 400;
+}
+
+.library .list-group .list-group-item {
+  background-color: rgba(254, 254, 254, .9);
+  text-align: left;
+}
