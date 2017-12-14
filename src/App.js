@@ -26,9 +26,6 @@ class App extends Component {
           <Route path="/library" component={Library} />
           <Route path="/album/:slug" component={Album} />
         </main>
-        <footer>
-          <h6>A Bloc Project</h6>
-        </footer>
       </div>
     );
   }

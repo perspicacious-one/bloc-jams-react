@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import albumData from './../../data/albums';
+import PlayButton from './../PlayButton/PlayButton.js';
 import PlayerBar from '../PlayerBar/PlayerBar.js';
+
 import "./album.css";
 
 class Album extends Component {
@@ -115,20 +117,16 @@ class Album extends Component {
     this.setState({ currentTime: newTime });
   }
 
-
   renderSongs() {
     return (
-      <tbody>
+      <tbody className="list-group">
         {this.state.album.songs.map( (song, index) =>
-          <tr className="song" key={index.toString()} onClick={ () => this.handleSongClick(song) } >
-            <td>
-              <button>
-                <span className="ion-play"></span>
-              </button>
+          <tr className="song-row list-group-item" key={index.toString()}>
+            <td className="col-play" onClick={ () => this.handleSongClick(song) } >
+              <PlayButton isPlaying={this.state.isPlaying} currentSong={this.state.currentSong} song={song} dark={true}/>
             </td>
-            <td><span className='song-number'>{index + 1}</span></td>
-            <td>{song.title}</td>
-            <td>{this.formatTime(song.duration)}</td>
+            <td className="col-title"><span className='song-number'>{index + 1 + ". "}</span>{song.title}</td>
+            <td className="col-time">{this.formatTime(song.duration)}</td>
           </tr>
         )}
       </tbody>
@@ -138,34 +136,41 @@ class Album extends Component {
   render() {
     return (
       <section className='album'>
-        <section id="album-info">
-          <img id="album-cover-art" src={this.state.album.albumCover} />
-          <div className="album-details">
-            <h1 id="album-title">{this.state.album.title}</h1>
-            <h2 className="artist">{this.state.album.artist}</h2>
-            <div id="release-info">{this.state.album.releaseInfo}</div>
+        <div className="container section-container">
+          <section id="album-info">
+            <img id="album-cover-art" src={this.state.album.albumCover} />
+            <div className="jumbotron album-jumbotron">
+              <h1 id="album-title display-4">{this.state.album.title}</h1>
+              <h2 className="artist lead">{this.state.album.artist}</h2>
+              <div id="release-info lead">{this.state.album.releaseInfo}</div>
+            </div>
+          </section>
+          <div className="song-container">
+            <table id="song-list">
+              <colgroup className="row">
+                <col id="song-number-column" />
+                <col id="song-title-column" />
+                <col id="song-duration-column" />
+              </colgroup>
+              {this.renderSongs()}
+            </table>
           </div>
-        </section>
-        <table id="song-list">
-          <colgroup>
-            <col id="song-number-column" />
-            <col id="song-title-column" />
-            <col id="song-duration-column" />
-          </colgroup>
-          {this.renderSongs()}
-        </table>
-        <PlayerBar
-          isPlaying={this.state.isPlaying}
-          currentSong={this.state.currentSong}
-          currentTime={this.audioElement.currentTime}
-          duration={this.audioElement.duration}
-          handleSongClick={ () => this.handleSongClick(this.state.currentSong)}
-          handlePrevClick={ () => this.handlePrevClick()}
-          handleNextClick={ () => this.handleNextClick()}
-          handleTimeChange={(e) => this.handleTimeChange(e)}
-          handleVolumeChange={(e) => this.handleVolumeChange(e)}
-          formatTime={(seconds) => this.formatTime(seconds)}
-          />
+        </div>
+        <footer>
+          <PlayerBar
+            isPlaying={this.state.isPlaying}
+            currentSong={this.state.currentSong}
+            currentTime={this.audioElement.currentTime}
+            duration={this.audioElement.duration}
+            handleSongClick={ () => this.handleSongClick(this.state.currentSong)}
+            handlePrevClick={ () => this.handlePrevClick()}
+            handleNextClick={ () => this.handleNextClick()}
+            handleTimeChange={(e) => this.handleTimeChange(e)}
+            handleVolumeChange={(e) => this.handleVolumeChange(e)}
+            formatTime={(seconds) => this.formatTime(seconds)}
+            />
+          <h6>A Bloc Project</h6>
+        </footer>
       </section>
     );
   }
