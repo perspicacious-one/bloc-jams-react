@@ -14,8 +14,8 @@ class App extends Component {
         <header>
           <nav className="navbar navbar-light justify-content-start">
             <a className="navbar-brand" href="#">
-              <img src="{'/assets/images/bloc_jams_logo.png'}" width="30" height="30" className="d-inline-block align-top" alt="" />
-              Bloc Jams
+              <img src="{'/assets/images/jelly__logo.png'}" width="30" height="30" className="d-inline-block align-top" alt="" />
+              Jelly
             </a>
             <Link className="nav-item nav-link" to='/'>Landing</Link>
             <Link className="nav-item nav-link" to='/library'>Library</Link>

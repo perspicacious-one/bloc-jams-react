@@ -7,7 +7,7 @@ import './landing.css';
 const Landing = () => (
 <section class="main-content">
   <section className="jumbotron jumbotron-fluid">
-    <h1 className="display-3">Bloc Jams</h1>
+    <h1 className="display-3">Jelly</h1>
     <h2 className="lead">Turn the music up!</h2>
   </section>
   <div id="landing-cards" className="container">
